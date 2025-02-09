@@ -1,0 +1,21 @@
+package com.example.memecointracker;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class CoinController {
+
+    private final CoinService coinService;
+
+    public CoinController(CoinService coinService) {
+        this.coinService = coinService;
+    }
+
+    @GetMapping("/")
+    public String getMemeCoins(Model model) {
+        model.addAttribute("coins", coinService.getMemeCoins());
+        return "index";
+    }
+}
