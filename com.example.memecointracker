@@ -1,0 +1,19 @@
+package com.example.memecointracker;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class CoinService {
+
+    private final String apiUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=meme-token&order=market_cap_desc&per_page=10&page=1&sparkline=false";
+
+    public List<Coin> getMemeCoins() {
+        RestTemplate restTemplate = new RestTemplate();
+        Coin[] coins = restTemplate.getForObject(apiUrl, Coin[].class);
+        return Arrays.asList(coins != null ? coins : new Coin[0]);
+    }
+}
